@@ -11,6 +11,7 @@ import goals from "./module/definitions/goals";
 import messaging from "./module/definitions/messaging";
 import notes from "./module/definitions/notes";
 import web from "./module/definitions/web";
+import bluesky from "./module/definitions/bluesky";
 import { ModuleManager } from "./module/module-manager";
 import { contextWindowSize } from "./openai";
 import { model, numberOfAgents } from "./parameters";
@@ -36,11 +37,12 @@ async function main() {
       messaging,
       filesystem,
       web,
+      bluesky,
     ]);
     const actionHandler = new ActionHandler(
       agentIds,
       messageBus,
-      moduleManager
+      moduleManager,
     );
 
     const store = new JsonStore<Event[]>(new FileStore([id]));
@@ -52,7 +54,7 @@ async function main() {
       memory,
       messageBus,
       moduleManager,
-      actionHandler
+      actionHandler,
     );
     await agent.start();
   }
